@@ -1,25 +1,30 @@
-# refactor skills
+# skills
 
-Codex skills for post-implementation cleanup with parallel workers.
+Codex skill collection.
 
-## Skills
+## Included skills
 
-- `$refactor`: scoped cleanup for files Codex changed in the current task only.
-- `$refactor-all`: full cleanup for all current staged + unstaged tracked changes.
-
-Both enforce nearest `AGENTS.md` guardrails, avoid destructive git operations, and preserve behavior unless explicitly requested otherwise.
+- `commit`
+- `commit-all`
+- `commit-and-push`
+- `commit-all-and-push`
+- `refactor`
+- `refactor-all`
 
 ## Install
 
 ```bash
-mkdir -p ~/.codex/skills/local/refactor ~/.codex/skills/local/refactor-all
-cp SKILL.md ~/.codex/skills/local/refactor/SKILL.md
-cp refactor-all/SKILL.md ~/.codex/skills/local/refactor-all/SKILL.md
+for s in commit commit-all commit-and-push commit-all-and-push refactor refactor-all; do
+  mkdir -p "$HOME/.codex/skills/local/$s"
+  cp "$s/SKILL.md" "$HOME/.codex/skills/local/$s/SKILL.md"
+done
 ```
 
-## Usage
+## Invocation labels
 
-```text
-$refactor
-$refactor-all
-```
+- `$commit`
+- `$commit-all`
+- `$commit-and-push`
+- `$commit-all-and-push`
+- `$refactor`
+- `$refactor-all`
