@@ -1,49 +1,55 @@
 ---
 name: refactor
-description: Parallel refactor orchestrator for active git changes. Use when the user says "$refactor", "run refactor", or asks to clean up current edits after implementation. Inspect staged+unstaged tracked diffs, spawn parallel workers, improve code quality and efficiency, and enforce nearest AGENTS.md rules while preserving behavior.
+description: Scoped parallel refactor for files Codex changed in the current task. Use when the user says "$refactor" after asking for implementation. Build an explicit allowed file list from your own edits only, then improve code quality and low-risk efficiency in that list while enforcing AGENTS.md rules.
 ---
 
 # Refactor
 
-Run a parallel, behavior-safe cleanup pass on current changes.
+Refactor only files you changed in this task.
 
 ## Defaults
 
-- Scope: staged + unstaged tracked changes.
+- Scope: files edited by Codex in current task/session.
 - Parallelism: up to 4 workers (cap by file count).
-- Strategy: single mode; choose refactor depth by risk.
+- Strategy: single mode; choose depth by risk.
 
 ## Workflow
 
-1. Ground rules first.
-- Read nearest `AGENTS.md` in current repo.
-- If in a submodule, read submodule `AGENTS.md` too.
+1. Read constraints first.
+- Read nearest `AGENTS.md` in repo.
+- If in submodule, read submodule `AGENTS.md` too.
 - Apply stricter rule on conflicts.
 
-2. Build refactor scope inline.
-- Collect unstaged + staged paths:
+2. Define allowed scope.
+- Build explicit allowed file list from files you edited in this task.
+- Never include files only because they are dirty.
+- If ownership is uncertain for a file/hunk, exclude it.
+- If allowed list is empty or unavailable, stop and ask for explicit files or suggest `$refactor-all`.
+
+3. Validate scope against tree.
+- Inspect current tree:
 
 ```bash
-git diff --name-only --diff-filter=d
-git diff --cached --name-only --diff-filter=d
+git status --short
+git diff --name-status
+git diff --cached --name-status
 ```
 
-- Merge, dedupe, keep tracked files only.
-- If scope empty: report "no tracked staged/unstaged changes" and stop.
+- Keep refactor scope as intersection of allowed list and currently modified tracked files.
 
-3. Partition files for parallel workers.
-- Sort scope list by path.
+4. Partition for parallel workers.
+- Sort allowed files by path.
 - Pick `workers = min(4, file_count)`.
-- Split sorted files into contiguous chunks of near-equal size.
-- Each file must belong to exactly one worker.
+- Split into non-overlapping chunks.
+- Each file belongs to exactly one worker.
 
-4. Spawn workers in parallel.
-- Use `spawn_agent` with `agent_type: worker` for each chunk.
-- Give each worker explicit file ownership.
-- Worker prompt must include:
+5. Spawn workers in parallel.
+- Use `spawn_agent` with `agent_type: worker`.
+- Each worker prompt must include:
+  - owned file list
   - "You are not alone in the codebase; ignore edits from others unless in owned files."
-  - goals: code quality, efficiency, AGENTS compliance, behavior preservation
-  - constraints: no destructive git commands; no unrelated edits; escalate risky semantic changes
+  - goals: readability, maintainability, low-risk efficiency, AGENTS compliance
+  - constraints: no destructive git commands, no out-of-scope edits, no risky semantic changes
 
 Worker prompt template:
 
@@ -54,9 +60,9 @@ Refactor owned files only:
 You are not alone in the codebase. Ignore edits from others unless they are in owned files.
 
 Goals:
-1) Improve readability/maintainability (extract helpers, simplify control flow, remove duplication).
+1) Improve readability/maintainability.
 2) Improve efficiency where low-risk and justified.
-3) Enforce AGENTS.md rules in this repo/submodule.
+3) Enforce AGENTS.md rules.
 4) Preserve behavior; if unsure, stop and report risk.
 
 Constraints:
@@ -71,27 +77,25 @@ Deliver:
 - risk flags
 ```
 
-5. Collect and reconcile.
+6. Collect and enforce boundaries.
 - Wait for all workers.
-- If overlap/conflict appears, keep safer/smaller edit and reconcile manually.
-- Keep final edits scoped unless dependency-coupled change is required and documented.
+- Reject/undo any out-of-scope file edits before finalizing.
+- If conflicts appear, keep safer/smaller change.
 
-6. Verify.
-- Run smallest relevant checks for touched code.
-- Prefer scripts in this order when available: `typecheck`, `test`, `lint`.
-- If unavailable or failing, report exact gap/error.
-
-7. Report concise summary.
-- Scope analyzed
-- Parallel plan (workers + chunk map)
-- Quality refactors
-- Efficiency improvements
-- AGENTS compliance notes
-- Risks/follow-ups
+7. Verify and report.
+- Run smallest relevant checks.
+- Prefer: `typecheck`, `test`, `lint` when available.
+- Report:
+  - allowed scope
+  - touched files (must be subset of allowed scope)
+  - refactor summary
+  - efficiency improvements
+  - AGENTS compliance notes
+  - risks/follow-ups
 
 ## Guardrails
 
+- Do not touch pre-existing local edits you did not make.
+- Do not expand scope without explicit user approval.
 - Keep behavior unchanged unless user explicitly asks for behavior change.
 - Prefer explicit branching over dense ternaries in complex invocations.
-- Keep edits scoped; avoid opportunistic repo-wide cleanup.
-- Stop and ask user when risk is non-trivial or requirements conflict.

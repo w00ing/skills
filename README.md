@@ -1,25 +1,25 @@
-# refactor skill
+# refactor skills
 
-Global Codex skill for `$refactor`.
+Codex skills for post-implementation cleanup with parallel workers.
 
-## What it does
+## Skills
 
-- Reviews current staged + unstaged tracked changes
-- Spawns parallel worker agents
-- Improves code quality and low-risk efficiency
-- Enforces nearest `AGENTS.md` constraints
-- Preserves behavior and escalates risky semantic changes
+- `$refactor`: scoped cleanup for files Codex changed in the current task only.
+- `$refactor-all`: full cleanup for all current staged + unstaged tracked changes.
+
+Both enforce nearest `AGENTS.md` guardrails, avoid destructive git operations, and preserve behavior unless explicitly requested otherwise.
 
 ## Install
 
-Copy `SKILL.md` to:
-
 ```bash
-~/.codex/skills/local/refactor/SKILL.md
+mkdir -p ~/.codex/skills/local/refactor ~/.codex/skills/local/refactor-all
+cp SKILL.md ~/.codex/skills/local/refactor/SKILL.md
+cp refactor-all/SKILL.md ~/.codex/skills/local/refactor-all/SKILL.md
 ```
 
-Then invoke in Codex with:
+## Usage
 
 ```text
 $refactor
+$refactor-all
 ```
