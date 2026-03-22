@@ -10,11 +10,12 @@ Codex skill collection.
 - `commit-all-and-push`
 - `refactor`
 - `refactor-all`
+- `shotomatic-blog`
 
 ## Install
 
 ```bash
-for s in commit commit-all commit-and-push commit-all-and-push refactor refactor-all; do
+for s in commit commit-all commit-and-push commit-all-and-push refactor refactor-all shotomatic-blog; do
   mkdir -p "$HOME/.codex/skills/local/$s"
   cp "$s/SKILL.md" "$HOME/.codex/skills/local/$s/SKILL.md"
 done
@@ -28,3 +29,4 @@ done
 - `$commit-all-and-push`
 - `$refactor`
 - `$refactor-all`
+- `$shotomatic-blog`
