@@ -42,12 +42,14 @@ Before writing:
 
 - identify the core reader problem and search intent
 - define the post's job in `internal`:
+  - `contentType`
   - `purpose`
   - `solves`
   - `targetQueries`
   - `supportsPages`
   - `notes`
 - make the post support a real landing or commercial page, not just exist as standalone content
+- do not let a whole batch default to `how-to`; keep the planned mix intentional
 
 ### 2) Gather Truth Before Writing
 
@@ -63,7 +65,14 @@ Before writing:
 - follow `shotomatic-landing-page/docs/content/blog-guide.md` exactly
 - fill all required fields
 - make `title` and `description` match the primary search intent
+- set `internal.contentType` intentionally:
+  - `how-to`
+  - `comparison`
+  - `decision`
+  - `concept`
 - choose intentional `relatedPosts`
+- choose `relatedGlossaryTerms` only for glossary terms that are actually mentioned in the article body
+- prefer `relatedGlossaryTerms` over hardcoded markdown glossary links
 - set `publishAt` only when the post is truly ready for scheduled publishing
 
 ### 4) Write The Post
@@ -81,6 +90,9 @@ Before writing:
   - avoid overpromotion
 - make `supportsPages` real:
   - add natural in-body links to the intended landing or commercial pages
+- keep glossary connections low-clutter:
+  - no glossary rail or glossary section by default
+  - use glossary support only when the exact glossary term is truly mentioned
 
 ### 5) Handle The Hero Image
 
@@ -103,8 +115,10 @@ Before finishing, check:
 
 - frontmatter shape is valid
 - `internal` block still matches the actual article
+- `internal.contentType` matches the real editorial job of the post
 - headings and body reflect the main `targetQueries`
 - `relatedPosts` are intentional
+- `relatedGlossaryTerms` matches exact glossary term mentions in the body
 - in-body links support `supportsPages`
 - product claims match shipped behavior
 - competitor claims are current or removed
@@ -115,7 +129,7 @@ Before finishing, check:
 
 When using this skill, operate with this prompt:
 
-> Write or revise this Shotomatic blog post as a search-intent-matched, publish-ready content asset. Follow `shotomatic-landing-page/docs/content/blog-guide.md` exactly. Fill complete frontmatter, including `internal` intent metadata. Make the article genuinely useful first, then clearly show where Shotomatic fits. Verify product-truth from the repo. Verify external drift-prone claims from official sources only when necessary. Use a commercially safe stock or open-source hero image, store it locally under `public/images/blog/`, optimize it before publish, and leave source and license notes in the thread or PR notes. Default new posts to `review` unless the user clearly asks for another status.
+> Write or revise this Shotomatic blog post as a search-intent-matched, publish-ready content asset. Follow `shotomatic-landing-page/docs/content/blog-guide.md` exactly. Fill complete frontmatter, including `internal` intent metadata with an intentional `contentType` and curated `relatedGlossaryTerms`. Only connect the post to glossary terms when the exact glossary term is actually mentioned in the article body. Keep glossary support inline and low-clutter. Make the article genuinely useful first, then clearly show where Shotomatic fits. Verify product-truth from the repo. Verify external drift-prone claims from official sources only when necessary. Use a commercially safe stock or open-source hero image, store it locally under `public/images/blog/`, optimize it before publish, and leave source and license notes in the thread or PR notes. Default new posts to `review` unless the user clearly asks for another status.
 
 ## Output Contract
 
