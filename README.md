@@ -9,6 +9,7 @@ Codex skill collection.
 - `commit-and-push`
 - `commit-all-and-push`
 - `grill-me`
+- `grill-with-docs`
 - `refactor`
 - `refactor-all`
 - `shotomatic-blog`
@@ -16,9 +17,9 @@ Codex skill collection.
 ## Install
 
 ```bash
-for s in commit commit-all commit-and-push commit-all-and-push grill-me refactor refactor-all shotomatic-blog; do
+for s in commit commit-all commit-and-push commit-all-and-push grill-me grill-with-docs refactor refactor-all shotomatic-blog; do
   mkdir -p "$HOME/.codex/skills/local/$s"
-  cp "$s/SKILL.md" "$HOME/.codex/skills/local/$s/SKILL.md"
+  cp -R "$s"/. "$HOME/.codex/skills/local/$s"/
 done
 ```
 
@@ -29,6 +30,7 @@ done
 - `$commit-and-push`
 - `$commit-all-and-push`
 - `$grill-me`
+- `$grill-with-docs`
 - `$refactor`
 - `$refactor-all`
 - `$shotomatic-blog`
