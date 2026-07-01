@@ -11,13 +11,37 @@ Codex skill collection.
 - `blog-post`
 - `grill-me`
 - `grill-with-docs`
+- `humanizer`
+- `humanize-chinese`
+- `humanize-german`
+- `humanize-italian`
+- `humanize-japanese`
+- `humanize-korean`
 - `refactor`
 - `refactor-all`
 
 ## Install
 
 ```bash
-for s in commit commit-all commit-and-push commit-all-and-push blog-post grill-me grill-with-docs refactor refactor-all; do
+skills=(
+  commit
+  commit-all
+  commit-and-push
+  commit-all-and-push
+  blog-post
+  grill-me
+  grill-with-docs
+  humanizer
+  humanize-chinese
+  humanize-german
+  humanize-italian
+  humanize-japanese
+  humanize-korean
+  refactor
+  refactor-all
+)
+
+for s in "${skills[@]}"; do
   mkdir -p "$HOME/.codex/skills/local/$s"
   cp -R "$s"/. "$HOME/.codex/skills/local/$s"/
 done
@@ -32,5 +56,11 @@ done
 - `$blog-post`
 - `$grill-me`
 - `$grill-with-docs`
+- `$humanizer`
+- `$humanize-chinese`
+- `$humanize-german`
+- `$humanize-italian`
+- `$humanize-japanese`
+- `$humanize-korean`
 - `$refactor`
 - `$refactor-all`

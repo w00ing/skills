@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize German"
+  short_description: "Naturalize German public copy"
+  default_prompt: "Use $humanize-german to polish this German landing-page copy while preserving facts."

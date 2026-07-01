@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize Chinese"
+  short_description: "Polish Simplified Chinese copy."
+  default_prompt: "Use $humanize-chinese to polish this Simplified Chinese copy while preserving meaning and verified product claims."
