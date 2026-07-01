@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize Chinese"
+  short_description: "Polish Simplified Chinese copy."
+  default_prompt: "Polish this Simplified Chinese Shotomatic copy so it sounds natural, accurate, and human-written while preserving meaning and product truth."

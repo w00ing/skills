@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize Japanese"
+  short_description: "Naturalize Japanese public copy"
+  default_prompt: "Use $humanize-japanese to polish this Japanese landing-page copy while preserving facts."

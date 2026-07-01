@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize Italian"
+  short_description: "Naturalize Italian public copy"
+  default_prompt: "Use $humanize-italian to polish this Italian landing-page copy while preserving facts."
