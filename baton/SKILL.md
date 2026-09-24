@@ -1,15 +1,15 @@
 ---
 name: baton
-description: Coordinate Luna Max subagents while the lead model plans, integrates, and reviews. Use when the user invokes $baton or asks for Luna delegation.
+description: Coordinate Luna Max execution under a stronger lead model that decides, plans, and reviews. Use when the user invokes $baton or asks for Luna delegation.
 ---
 
 # Baton
 
-Keep the current model as conductor: own task decomposition, architectural decisions, integration, and final acceptance. Delegate bounded execution to Luna.
+Use a model stronger than Luna as conductor: own decisions, task decomposition, integration, and final acceptance. Luna workers execute the lead's plan.
 
-1. Spawn as many Luna workers as the task needs. Delegate tasks that can run independently alongside useful lead work. Keep trivial or tightly coupled work local. Parallelize only independent tasks with non-overlapping write scopes; sequence dependencies.
+1. Spawn as many Luna workers as the task needs. Delegate bounded execution; keep open-ended judgment, trivial work, and tightly coupled work with the lead. Parallelize only independent tasks with non-overlapping write scopes; sequence dependencies.
 2. Explicitly select `model="gpt-6-luna"` and reasoning effort `max` using the available subagent tool. If it supports `fork_turns`, use `fork_turns="none"` and provide the relevant context yourself; full-history forks inherit the parent model. If Luna Max cannot be selected, report the limitation instead of silently substituting another model.
-3. Give each worker a self-contained brief: **outcome, relevant context, scope and constraints, completion criteria, useful verification**. Include only what changes its work; use file references for bulky material.
-4. Tell workers to stay within their assigned scope, preserve others' edits, and return decisions or blockers to you. Workers must not spawn further agents. Coordinate ownership before changing a live worker's files.
+3. Before delegating, decide the approach, scope, and acceptance criteria. Brief each worker with the outcome, these decisions, relevant context, constraints, and useful verification. Use file references for bulky material.
+4. Workers may choose routine implementation details within the plan. They must escalate unresolved decisions, required plan changes, or blockers to the lead before continuing affected work. Preserve others' edits; workers must not spawn further agents. Coordinate ownership before changing a worker's files.
 5. Require a concise return: **result, changed files or evidence references, verification results, unresolved issues**. Inspect the actual artifacts and resolve material findings; a worker's completion report alone does not establish correctness.
-6. When work fails, diagnose the cause before retrying. Clarify the brief, narrow the task, or take over after coordinating ownership. Avoid unchanged retry loops. Collect all required results and complete proportionate integration checks before reporting the outcome and any remaining gaps.
+6. The lead diagnoses failures before retrying, adjusts the plan or takes over, and collects all required results for proportionate integration checks. Avoid unchanged retries; report the outcome and any remaining gaps.
