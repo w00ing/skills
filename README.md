@@ -4,6 +4,7 @@ Codex skill collection.
 
 ## Included skills
 
+- `baton`
 - `commit`
 - `commit-all`
 - `commit-and-push`
@@ -24,6 +25,7 @@ Codex skill collection.
 
 ```bash
 skills=(
+  baton
   commit
   commit-all
   commit-and-push
@@ -49,6 +51,7 @@ done
 
 ## Invocation labels
 
+- `$baton`
 - `$commit`
 - `$commit-all`
 - `$commit-and-push`
