@@ -1,11 +1,11 @@
 ---
 name: baton
-description: Coordinate Luna Max execution under a stronger lead model that decides, plans, and reviews. Use when the user invokes $baton or asks for Luna delegation.
+description: Keep the current model in charge of decisions and orchestration; delegate execution to Luna Max. Use when the user invokes $baton or asks for Luna delegation.
 ---
 
 # Baton
 
-Use a model stronger than Luna as conductor: own decisions, task decomposition, integration, and final acceptance. Luna workers execute the lead's plan.
+The current model in this session is the conductor: own decisions, task decomposition, integration, and final acceptance. Spawn Luna workers for execution; do not spawn a separate orchestrator.
 
 1. Spawn as many Luna workers as the task needs. Delegate bounded execution; keep open-ended judgment, trivial work, and tightly coupled work with the lead. Parallelize only independent tasks with non-overlapping write scopes; sequence dependencies.
 2. Explicitly select `model="gpt-6-luna"` and reasoning effort `max` using the available subagent tool. If it supports `fork_turns`, use `fork_turns="none"` and provide the relevant context yourself; full-history forks inherit the parent model. If Luna Max cannot be selected, report the limitation instead of silently substituting another model.
