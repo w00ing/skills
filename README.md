@@ -19,8 +19,10 @@ Codex skill collection.
 - [humanize-italian](humanize-italian/SKILL.md)
 - [humanize-japanese](humanize-japanese/SKILL.md)
 - [humanize-korean](humanize-korean/SKILL.md)
+- [no-comments](no-comments/SKILL.md)
 - [refactor](refactor/SKILL.md)
 - [refactor-all](refactor-all/SKILL.md)
+- [test-audit](test-audit/SKILL.md)
 
 ## Install
 
@@ -53,5 +55,7 @@ npx skills add w00ing/skills --skill codex-imagegen --agent "<agent>" --global
 - `$humanize-italian`
 - `$humanize-japanese`
 - `$humanize-korean`
+- `$no-comments`
 - `$refactor`
 - `$refactor-all`
+- `$test-audit`
